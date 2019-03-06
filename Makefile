@@ -1,5 +1,5 @@
 PKG_NAME := earlyapp
-URL = https://github.com/intel/earlyapp/archive/v1.0.16.tar.gz
+URL = https://github.com/intel/earlyapp/archive/v1.0.17.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
