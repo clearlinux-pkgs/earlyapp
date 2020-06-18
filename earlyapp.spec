@@ -4,7 +4,7 @@
 #
 Name     : earlyapp
 Version  : 1.0.20
-Release  : 24
+Release  : 25
 URL      : https://github.com/intel/earlyapp/archive/v1.0.20.tar.gz
 Source0  : https://github.com/intel/earlyapp/archive/v1.0.20.tar.gz
 Summary  : No detailed summary available
@@ -78,24 +78,33 @@ services components for the earlyapp package.
 
 %prep
 %setup -q -n earlyapp-1.0.20
+cd %{_builddir}/earlyapp-1.0.20
 
 %build
+## build_prepend content
+CFLAGS="$CFLAGS -fcommon"
+## build_prepend end
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1552273311
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1592455524
 mkdir -p clr-build
 pushd clr-build
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 %cmake ..
-make  %{?_smp_mflags} VERBOSE=1
+make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1552273311
+export SOURCE_DATE_EPOCH=1592455524
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/earlyapp
-cp LICENSE %{buildroot}/usr/share/package-licenses/earlyapp/LICENSE
+cp %{_builddir}/earlyapp-1.0.20/LICENSE %{buildroot}/usr/share/package-licenses/earlyapp/f1abe68810a47b1568317660d30187dcc1df33c9
 pushd clr-build
 %make_install
 popd
@@ -128,7 +137,7 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/earlyapp/LICENSE
+/usr/share/package-licenses/earlyapp/f1abe68810a47b1568317660d30187dcc1df33c9
 
 %files services
 %defattr(-,root,root,-)
