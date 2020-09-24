@@ -4,7 +4,7 @@
 #
 Name     : earlyapp
 Version  : 1.0.20
-Release  : 25
+Release  : 26
 URL      : https://github.com/intel/earlyapp/archive/v1.0.20.tar.gz
 Source0  : https://github.com/intel/earlyapp/archive/v1.0.20.tar.gz
 Summary  : No detailed summary available
